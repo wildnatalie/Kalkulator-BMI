@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <title>Kalkulator BMI</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Oblicz swoje BMI!</h1>
+            <p>(Body Mass Index)</p>
+        </header>
+        <article>
+            <section>
+                <h2>Parametry</h2>
+                
+                    <p><input id="height" type="number" placeholder="Wzrost w cm" /></p>
+                    <p><input id="weight" type="number" placeholder="Waga w kg" /></p>
+                    <button id="oblicz">Oblicz!</button>
+                
+            </section>
+            <section>
+                <h2>Twój wynik:</h2>
+                <h2 id="wynik">...</h2>
+                <p id="opis"></p>
+        </article>
+    </div>
+
+
+    <script type="text/javascript">
+
+        
+        //http://www.yarpo.pl/2011/03/06/js-zaokraglanie-liczb-z-zadana-dokladnoscia/
+        function Round(n, k) {
+            var factor = Math.pow(10, k);
+            return Math.round(n*factor)/factor;
+        }
+
+        var h = 0;
+        var w = 0;
+        var bmi = 0.0;
+        
+
+        document.getElementById("oblicz").onclick = function() {
+            h = document.getElementById("height").value/100;
+            w = document.getElementById("weight").value;
+
+            bmi = w / (h * h);
+            bmi = Round(bmi, 2);
+
+            var description;
+
+            if (bmi < 16.0) {
+                description = "Wygłodzenie!";
+            } else if (bmi < 16.99) {
+                description = "Wychudzenie!";
+            } else if (bmi < 18.49) {
+                description = "Niedowaga!";
+            } else if (bmi < 24.99) {
+                description = "Waga prawidłowa! Brawo!";
+            } else if (bmi < 29.99) {
+                description = "Nadwaga :(";
+            } else if (bmi < 34.99) {
+                description = "I stopień otyłości!";
+            } else if (bmi < 39.99) {
+                description = "II stopień otyłości!";
+            } else {
+                description = "Otyłość skrajna!";
+            }
+
+            document.getElementById("wynik").innerHTML = bmi;
+            document.getElementById("opis").innerHTML = description;
+        }
+
+        
+
+    </script>
+</body>
+</html>
